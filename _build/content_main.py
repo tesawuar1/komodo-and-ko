@@ -13,7 +13,7 @@ CONTACT = {
     "whatsapp_intl": "6282339297918",  # used for wa.me links
     # Google Apps Script "Web app" URL that saves enquiries to the Google Sheet and emails
     # the team. Leave empty until it is set up (see tools/google-apps-script/SETUP.md).
-    "enquiry_endpoint": "",
+    "enquiry_endpoint": "https://script.google.com/macros/s/AKfycbzoNaAn31qmftnLoeIX5tBTChVRB8B2_c7zMN1bxBbXuurlye66g7byDrmfnRq3aEAyPA/exec",
     "social": [
         ("Instagram", "https://www.instagram.com/komodoandko"),
         ("TikTok", "https://www.tiktok.com/@komodoandko"),
