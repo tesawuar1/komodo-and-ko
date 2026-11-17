@@ -4,6 +4,35 @@
   var nav = document.querySelector(".nav");
   var finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
 
+  /* Motion: sections and cards glide up into place as they reach the screen.
+     Only movement, never hidden: text is always readable. Things already on screen
+     when the page opens are left alone so nothing jumps. */
+  (function () {
+    if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var phone = matchMedia("(max-width: 960px)").matches;
+    var sel = [".sec-head", ".ed", ".svc-list a", ".why h2", ".why-grid > div", ".about > *", ".cta > div",
+               ".item", ".prose section", ".days li", ".options > div", ".svc-intro > *", ".enq-side", ".facts", ".f-grid > div"];
+    if (phone) sel.push("#story .L2 .vision", "#story .L3 .acct", "#story .L4 .dragon", "#story .L4 .st-copy");
+    var els = Array.prototype.slice.call(document.querySelectorAll(sel.join(",")));
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.08 });
+    els.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) return;            // already visible: leave it
+      var sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.setProperty("--rv", String(Math.min(sibs, 5)));
+      el.classList.add(el.matches(".svc-list a, .days li") ? "rv-x" : "rv", "rv");
+      io.observe(el);
+    });
+    /* switch the glide on only after the starting position is set, so nothing shifts on load */
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      els.forEach(function (el) { if (el.classList.contains("rv")) el.classList.add("rv-on"); });
+    }); });
+  })();
+
   /* Nav background once the page scrolls */
   var story = document.getElementById("story");
   function navState() {

@@ -681,3 +681,46 @@ body.menu-open{overflow:hidden}
 .enq-side ol{gap:22px}
 .enq-side ol li::before{grid-row:span 2}
 .enq-side ol li strong,.enq-side ol li span{grid-column:2}
+
+/* ---------------- Motion: home page (and other pages) ----------------
+   Text never waits to appear: elements are always fully visible and only glide
+   into place. Phones get a slow living zoom on the photos, a rising headline and
+   a bouncing scroll hint; sections slide up as they arrive on screen. */
+
+/* Phone hero: photo slowly breathes, scroll hint returns */
+@media (max-width:960px){
+  #story .cam .plate{animation:kenburns 18s ease-in-out infinite alternate;transform-origin:55% 70%}
+  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.1) translate3d(-1.5%,-1%,0)}}
+  #story .hint{display:flex;position:absolute;right:20px;bottom:22px;font-size:13px}
+  #story .hint i{width:28px;height:28px}
+  #story .caption{bottom:76px}
+  /* Komodo photo gently zooms */
+  #story .dragon img{animation:kenburns 14s ease-in-out infinite alternate}
+}
+
+/* Slide-into-place for sections and cards (added by main.js; transform only, never hidden) */
+.rv{transform:translate3d(0,34px,0)}
+.rv.rv-on{transition:transform .9s var(--ease) calc(var(--rv,0) * 90ms)}
+.rv.in{transform:none}
+.rv-x{transform:translate3d(-30px,0,0)}
+.rv-x.in{transform:none}
+
+/* Touch screens: a short press response instead of hover */
+@media (hover:none){
+  .ed:active .pic{transform:scale(.97)}
+  .ed .pic{transition:transform .25s ease}
+  .ed:active .pic .bg{transform:scale(1.06)}
+  .btn:active,.svc-list a:active,.feats a:active{transform:scale(.97)}
+  .btn,.svc-list a{transition:transform .2s ease}
+}
+
+@media (prefers-reduced-motion:reduce){
+  #story .cam .plate,#story .dragon img{animation:none}
+  .rv,.rv-x{transform:none;transition:none}
+}
+@media (max-width:960px){
+  #story .L2 .vision.rv.rv-on,#story .L3 .acct.rv.rv-on,#story .L4 .dragon.rv.rv-on,#story .L4 .st-copy.rv.rv-on{
+    transition:transform .8s var(--ease) calc(var(--rv,0) * 90ms)}
+  #story .L2 .vision.rv:not(.in),#story .L3 .acct.rv:not(.in),#story .L4 .dragon.rv:not(.in),#story .L4 .st-copy.rv:not(.in){
+    transform:translate3d(0,34px,0)}
+}
