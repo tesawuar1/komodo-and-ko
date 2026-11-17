@@ -520,7 +520,6 @@ HOME = {
         (0.51, 0.58, L("Summit trail", "Jalur menuju puncak"), L("30 to 45 min hike", "Pendakian 30 sampai 45 menit")),
         (0.42, 0.76, L("Black-sand bay", "Teluk pasir hitam"), L("Seen from the top", "Terlihat dari puncak")),
         (0.71, 0.64, L("White-sand bay", "Teluk pasir putih"), L("Where the boats anchor", "Tempat kapal berlabuh")),
-        (0.26, 0.55, L("Turquoise bay", "Teluk biru toska"), L("Best at sunrise", "Terindah saat fajar")),
     ],
     "station_title": L("Komodo is wild. Your trip doesn't have to be.", "Komodo itu liar. Perjalanan Anda tidak harus begitu."),
     "station_p": L(

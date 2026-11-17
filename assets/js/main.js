@@ -33,6 +33,31 @@
     }); });
   })();
 
+  /* Komodo photo: tilts toward the mouse, and "reacts" when tapped or clicked */
+  var dragon = document.querySelector(".dragon");
+  if (dragon) {
+    var dimg = dragon.querySelector(".dimg");
+    var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function poke() {
+      if (still) return;
+      dragon.classList.remove("poke");
+      void dragon.offsetWidth;                       // restart the animation on every tap
+      dragon.classList.add("poke");
+    }
+    dragon.addEventListener("click", poke);
+    dragon.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); poke(); } });
+    dragon.addEventListener("animationend", function () { dragon.classList.remove("poke"); });
+    if (finePointer && !still) {
+      dragon.addEventListener("pointermove", function (e) {
+        if (dragon.classList.contains("poke")) return;
+        var r = dragon.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        dimg.style.transform = "perspective(900px) rotateY(" + (x * 7).toFixed(2) + "deg) rotateX(" + (-y * 7).toFixed(2) + "deg)";
+      });
+      dragon.addEventListener("pointerleave", function () { dimg.style.transform = ""; });
+    }
+  }
+
   /* Nav background once the page scrolls */
   var story = document.getElementById("story");
   function navState() {
