@@ -564,7 +564,7 @@ body.menu-open{overflow:hidden}
   #story .L2,#story .L3,#story .L4{position:relative;inset:auto;min-height:100vh;min-height:100lvh;display:flex;align-items:center;pointer-events:auto}
   /* scene 2: the promise, over the island */
   #story .L2{justify-content:center;padding:90px 22px;isolation:isolate;
-    background:linear-gradient(rgba(14,22,14,.5),rgba(14,22,14,.5)),url(../img/padar-island.jpg) 56% 62%/cover no-repeat,var(--forest)}
+    background:linear-gradient(rgba(14,22,14,.5),rgba(14,22,14,.5)),url(../img/padar-island-phone.jpg) 56% 62%/cover no-repeat,var(--forest)}
   #story .L2 .vision,#story[data-scene] .L2 .vision{position:relative;left:auto;top:auto;transform:none;width:100%}
   #story .vision h2{font-size:42px}
   /* scene 3: the paragraph on its ivory panel, over another view of the island */
@@ -674,3 +674,10 @@ body.menu-open{overflow:hidden}
 
 /* enquiry form spam trap: hidden from people, visible to bots */
 .hp{position:absolute!important;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* Enquiry page: "What happens next" with the five How it works steps */
+.enq-side ol li strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;line-height:1.2;color:var(--ivory);margin-bottom:4px}
+.enq-side ol li span{display:block;font-size:15.5px;line-height:1.6;color:rgba(244,240,227,.8)}
+.enq-side ol{gap:22px}
+.enq-side ol li::before{grid-row:span 2}
+.enq-side ol li strong,.enq-side ol li span{grid-column:2}

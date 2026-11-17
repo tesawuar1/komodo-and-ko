@@ -173,6 +173,14 @@ def ver(rel):
     return hashlib.md5((ROOT / "assets" / rel).read_bytes()).hexdigest()[:8]
 
 
+def hero_preload(pg):
+    """Start downloading the hero photo straight away: a small one for phones, the full one for bigger screens."""
+    ph, full = "img/padar-island-phone.jpg", "img/padar-island.jpg"
+    nl = "\n"
+    return (f'{nl}<link rel="preload" as="image" href="{pg.asset(ph)}?v={ver(ph)}" media="(max-width: 960px)" fetchpriority="high">'
+            f'{nl}<link rel="preload" as="image" href="{pg.asset(full)}?v={ver(full)}" media="(min-width: 961px)" fetchpriority="high">')
+
+
 def layout(pg, title, desc, body, home_page=False, scripts=()):
     js = "".join(f'<script src="{pg.asset(s)}?v={ver(s)}" defer></script>' for s in ("js/main.js",) + tuple(scripts))
     return f"""<!doctype html>
@@ -189,7 +197,7 @@ def layout(pg, title, desc, body, home_page=False, scripts=()):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="{pg.asset("css/style.css")}?v={ver("css/style.css")}">
+<link rel="stylesheet" href="{pg.asset("css/style.css")}?v={ver("css/style.css")}">{hero_preload(pg) if home_page else ""}
 </head>
 <body class="{'home' if home_page else 'inner'}">
 <a class="skip" href="#main">Skip to content</a>
@@ -292,7 +300,7 @@ def home(pg):
 <section id="story" data-scene="0" aria-label="Komodo &amp; Ko.">
  <i class="snap" data-stop="0"></i><i class="snap" data-stop="0.26"></i><i class="snap" data-stop="0.52"></i><i class="snap" data-stop="0.86"></i>
  <div class="stage">
-  <div class="cam"><img class="plate" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" fetchpriority="high" decoding="async" alt="View over the bays of Padar Island in Komodo National Park, with boats at anchor"><div class="mist"></div></div>
+  <div class="cam"><picture><source media="(max-width: 960px)" srcset="{pg.asset("img/padar-island-phone.jpg")}?v={ver("img/padar-island-phone.jpg")}"><img class="plate" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" fetchpriority="high" alt="View over the bays of Padar Island in Komodo National Park, with boats at anchor"></picture><div class="mist"></div></div>
   <div class="veil"></div>
   <div class="shade"></div>
 
@@ -301,7 +309,7 @@ def home(pg):
     <h1><span class="ln"><span>{esc(t(H["h1a"]))} {esc(t(H["h1b"]))}</span></span></h1>
   </div></div>
 
-  <div class="cam camF" aria-hidden="true"><img class="plateF" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" alt=""></div>
+  <div class="cam camF" aria-hidden="true"><img class="plateF" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" loading="lazy" alt=""></div>
 
   <div class="layer L1">
     <div class="veil-b"></div>
@@ -351,12 +359,6 @@ LON  119.5714&deg; E
    <div class="rail-ctl"><button type="button" data-rail="-1" aria-label="{esc(t(UI["prev"]))}">{CHEV_L}</button><button type="button" data-rail="1" aria-label="{esc(t(UI["next"]))}">{CHEV_R}</button></div></div></div>
   <div class="rail" tabindex="0" aria-label="{esc(t(H["destinations_title"]))}">{rail}</div>
  </section>
-
- <section class="sec how" id="how-it-works"><div class="wrap">
-  <div class="sec-head"><h2>{esc(t(H["how_title"]))}</h2>
-   <a class="btn btn-solid" href="{pg.link("enquiry.html")}">{esc(t(UI["plan_now"]))}</a></div>
-  <ol class="how-steps">{"".join(f'<li class="how-step"><span class="how-num">{i}</span><h3>{esc(t(a))}</h3><p>{esc(t(b))}</p></li>' for i, (a, b) in enumerate(H["how_steps"], 1))}</ol>
- </div></section>
 
  <section class="why"><div class="wrap"><h2>{esc(t(H["why_title"]))}</h2><div class="why-grid">{why}</div></div></section>
 
@@ -567,7 +569,8 @@ def enquiry_page(pg):
         "labels": {k: t(v[0]) for k, v in F.items()},
         "err": {k: t(v) for k, v in E["errors"].items()},
     }
-    steps = "".join(f"<li>{esc(t(x))}</li>" for x in E["next"])
+    # "What happens next" shows the five "How it works" steps
+    steps = "".join(f"<li><strong>{esc(t(a))}</strong><span>{esc(t(b))}</span></li>" for a, b in HOME["how_steps"])
     body = page_hero(pg, title, t(E["intro"]), [(title, None)], pic_style(pg, "pages", "enquiry", ("padar-island", "50% 80%", "cover"))) + f"""
 <div class="wrap"><div class="enq">
   <aside class="enq-side"><h2>{esc(t(E["next_title"]))}</h2><ol>{steps}</ol>
