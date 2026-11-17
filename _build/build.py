@@ -176,7 +176,7 @@ def ver(rel):
 def layout(pg, title, desc, body, home_page=False, scripts=()):
     js = "".join(f'<script src="{pg.asset(s)}?v={ver(s)}" defer></script>' for s in ("js/main.js",) + tuple(scripts))
     return f"""<!doctype html>
-<html lang="{pg.lang}">
+<html lang="{pg.lang}"{' class="snap-home"' if home_page else ""}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -289,12 +289,12 @@ def home(pg):
     rail = "".join(dest_card(pg, d) for d in DESTINATIONS)
 
     body = f"""
-<section id="story" aria-label="Komodo &amp; Ko.">
+<section id="story" data-scene="0" aria-label="Komodo &amp; Ko.">
+ <i class="snap" data-stop="0"></i><i class="snap" data-stop="0.26"></i><i class="snap" data-stop="0.52"></i><i class="snap" data-stop="0.86"></i>
  <div class="stage">
   <div class="cam"><img class="plate" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" fetchpriority="high" decoding="async" alt="View over the bays of Padar Island in Komodo National Park, with boats at anchor"><div class="mist"></div></div>
   <div class="veil"></div>
   <div class="shade"></div>
-  <div class="fog" aria-hidden="true"><i class="f0"></i><i class="f1"></i><i class="f2"></i></div>
 
   <div class="layer L0"><div class="hero-copy">
     <span class="label">{esc(t(UI["hero_label"]))}</span>
@@ -314,19 +314,19 @@ LON  119.5714&deg; E
     <div class="hint" aria-hidden="true">{esc(t(UI["scroll"]))}<i></i></div>
   </div>
 
-  <div class="layer L2" style="visibility:hidden"><div class="vision">
+  <div class="layer L2"><div class="vision">
     <span class="label">{esc(t(UI["promise"]))}</span>
     <h2>{vision}</h2>
     <p>{esc(t(H["vision_p"]))}</p>
   </div></div>
 
-  <div class="layer L3" style="visibility:hidden"><p class="acct">{acct}</p><div class="spots">{spots}</div></div>
+  <div class="layer L3"><p class="acct">{acct}</p><div class="spots">{spots}</div></div>
 
   <div class="night"></div>
-  <div class="layer L4" style="visibility:hidden"><div class="station">
+  <div class="layer L4"><div class="station">
     <div class="dragon"><img src="{pg.asset("img/komodo-dragon.jpg")}?v={ver("img/komodo-dragon.jpg")}" alt="A Komodo dragon resting with its tongue out">
       <div class="dcard"><h4>{esc(t(H["dragon_card_title"]))}</h4><div class="latin">{H["dragon_card_latin"]}</div>
-        <div class="big"><span data-num>0</span><small>m</small></div><p>{esc(t(H["dragon_note"]))}</p></div></div>
+        <div class="big"><span data-num>3</span><small>m</small></div><p>{esc(t(H["dragon_note"]))}</p></div></div>
     <div class="st-copy"><h2>{esc(t(H["station_title"]))}</h2><p>{esc(t(H["station_p"]))}</p>
       <a class="btn btn-line light" href="#services">{esc(t(H["services_title"]))}</a></div>
   </div></div>
