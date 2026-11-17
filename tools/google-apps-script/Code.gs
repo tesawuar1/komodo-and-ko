@@ -5,7 +5,7 @@
  * "Send via WhatsApp" and "Send via Email" buttons), adds it as a row in a
  * Google Sheet, and emails a notification to the addresses below.
  *
- * Set-up (once, signed in as komodoandko@gmail.com):
+ * Set-up (once, signed in as YOUR-MAIN-ADDRESS@gmail.com):
  *   1. Run setup() once and allow the permissions it asks for.
  *   2. Deploy > New deployment > Web app: Execute as "Me", access "Anyone".
  *   3. Copy the Web app URL into _build/content_main.py ("enquiry_endpoint")
@@ -13,8 +13,8 @@
  * Full steps: tools/google-apps-script/SETUP.md
  */
 
-var OWNER_EMAIL = "komodoandko@gmail.com";     // owns the sheet, gets notifications
-var BACKUP_EMAIL = "wuartesa1111@gmail.com";    // shared as editor, gets notifications
+var OWNER_EMAIL = "YOUR-MAIN-ADDRESS@gmail.com";     // owns the sheet, gets notifications
+var BACKUP_EMAIL = "YOUR-BACKUP-ADDRESS@gmail.com";    // shared as editor, gets notifications
 var SHEET_NAME = "Enquiries";
 var HEADERS = ["Received", "Sent via", "Name", "Phone / WhatsApp", "Email", "Travel dates",
                "Guests", "Service / experience", "Estimated budget", "Language", "Page", "Status"];

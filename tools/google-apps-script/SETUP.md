@@ -1,15 +1,19 @@
 # Enquiry database: Google Sheet + email alerts
 
+> The real email addresses are kept only in the live script in your Google account
+> (script.google.com, project "Komodo & Ko. Enquiries"). Replace the placeholders below
+> with your own addresses if you ever set this up again from scratch.
+
 Every enquiry sent from the website form ("Send via WhatsApp" or "Send via Email")
 is saved as a new row in a Google Sheet, and an email alert goes to:
 
-- **komodoandko@gmail.com** (owns the sheet)
-- **wuartesa1111@gmail.com** (backup: has edit access to the same sheet)
+- **YOUR-MAIN-ADDRESS@gmail.com** (owns the sheet)
+- **YOUR-BACKUP-ADDRESS@gmail.com** (backup: has edit access to the same sheet)
 
 It is free and runs in your own Google account. Setup takes about 5 minutes and is done once.
 
 ## 1. Create the script
-1. Sign in to Google as **komodoandko@gmail.com**.
+1. Sign in to Google as **YOUR-MAIN-ADDRESS@gmail.com**.
 2. Go to <https://script.google.com> and click **New project**.
 3. Name it `Komodo & Ko. Enquiries` (top left).
 4. Delete the sample code, then paste in everything from `tools/google-apps-script/Code.gs`.
@@ -17,16 +21,16 @@ It is free and runs in your own Google account. Setup takes about 5 minutes and 
 
 ## 2. Create the sheet
 1. In the toolbar, choose the function **setup** and click **Run**.
-2. Google asks for permission. Click **Review permissions**, choose komodoandko@gmail.com,
+2. Google asks for permission. Click **Review permissions**, choose YOUR-MAIN-ADDRESS@gmail.com,
    then **Advanced > Go to Komodo & Ko. Enquiries (unsafe) > Allow**.
    ("Unsafe" only means the script is your own and not reviewed by Google.)
 3. When it finishes, a sheet called **Komodo & Ko. Enquiries** is in your Google Drive,
-   and wuartesa1111@gmail.com receives an email that it was shared with them.
+   and YOUR-BACKUP-ADDRESS@gmail.com receives an email that it was shared with them.
 
 ## 3. Turn on the web link
 1. Click **Deploy > New deployment**.
 2. Click the gear next to "Select type" and choose **Web app**.
-3. Set **Execute as: Me (komodoandko@gmail.com)** and **Who has access: Anyone**.
+3. Set **Execute as: Me (YOUR-MAIN-ADDRESS@gmail.com)** and **Who has access: Anyone**.
 4. Click **Deploy** and copy the **Web app URL** (it ends in `/exec`).
 5. Open the URL in a browser. You should see: *Komodo & Ko. enquiry endpoint is running.*
 
