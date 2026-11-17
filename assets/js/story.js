@@ -17,6 +17,8 @@
   var spots = qa(".spot"), snaps = qa(".snap");
   var bar = q(".prog i");
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* On phones the story is four normal sections (see style.css), so this script stays idle */
+  var phone = matchMedia("(max-width: 960px)");
   var finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* Scene boundaries (scroll progress 0-1). Snap stops sit inside each scene. */
@@ -36,6 +38,7 @@
   /* Geometry, measured on load and resize only */
   var G = null, storyTop = 0, total = 1;
   function geo() {
+    if (phone.matches) return;
     var pw = plate.offsetWidth, ph = plate.offsetHeight, pt = plate.offsetTop;
     var iw = plate.naturalWidth || 2400, ih = plate.naturalHeight || 1600;
     var k = Math.max(pw / iw, ph / ih), dw = iw * k, dh = ih * k, ox = (pw - dw) / 2;
@@ -86,7 +89,7 @@
   var sp = 0, sx = 0, sy = 0, mx = 0, my = 0, last = 0, running = false, scene = -1;
   function progress() { return clamp((window.pageYOffset - storyTop) / total); }
   function wake() {
-    if (running) return;
+    if (running || phone.matches) return;
     running = true;
     last = performance.now();
     requestAnimationFrame(frame);
@@ -145,7 +148,7 @@
   function stopY(i) { return Math.round(storyTop + STOPS[i] * total); }
   function onScrollEnd() {
     if (autoScrolling) { autoScrolling = false; return; }
-    if (reduce || document.body.classList.contains("menu-open")) return;
+    if (reduce || phone.matches || document.body.classList.contains("menu-open")) return;
     var y = window.pageYOffset;
     var last = stopY(STOPS.length - 1);
     if (y < storyTop - 2 || y > last + 4) return;           // outside the story: scroll freely
@@ -166,6 +169,21 @@
     if (!("onscrollend" in window)) { clearTimeout(endTimer); endTimer = setTimeout(onScrollEnd, 160); }
   }, { passive: true });
   if ("onscrollend" in window) addEventListener("scrollend", onScrollEnd);
+
+  /* switching between phone and desktop layouts (e.g. rotating a tablet) */
+  function onLayoutChange() {
+    if (phone.matches) {
+      [cam, camF, hud, heroCopy].forEach(function (el) { if (el) { el.style.transform = ""; el._transform = undefined; } });
+      if (hud) { hud.style.left = hud.style.top = ""; }
+      heroCopy.style.top = ""; heroCopy.querySelector("h1").style.fontSize = "";
+      spots.forEach(function (el) { el.style.transform = el.style.visibility = ""; el._transform = el._visibility = undefined; });
+      story.setAttribute("data-scene", "0"); scene = -1;
+    } else {
+      geo();
+    }
+  }
+  if (phone.addEventListener) phone.addEventListener("change", onLayoutChange);
+  else if (phone.addListener) phone.addListener(onLayoutChange);
 
   geo();
   addEventListener("resize", geo);
