@@ -544,8 +544,8 @@ HOME = {
     "how_title": L("How it works", "Cara kerjanya"),
     "how_steps": [
         (L("Tell us your plans", "Ceritakan rencana Anda"), L(
-            "Contact us via WhatsApp, DM or email. Share your travel dates, number of guests and the experiences you're looking for.",
-            "Hubungi kami melalui WhatsApp, DM, atau email. Ceritakan tanggal perjalanan, jumlah tamu, dan pengalaman yang Anda cari.",
+            "Contact us via WhatsApp, DM, email or this enquiry form. Share your travel dates, number of guests and the experiences you're looking for.",
+            "Hubungi kami melalui WhatsApp, DM, email, atau formulir enquiry ini. Ceritakan tanggal perjalanan, jumlah tamu, dan pengalaman yang Anda cari.",
         )),
         (L("Explore your options", "Jelajahi pilihan Anda"), L(
             "We'll recommend suitable services, experiences and itineraries based on your preferences and budget.",
