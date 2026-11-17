@@ -291,7 +291,7 @@ def home(pg):
     body = f"""
 <section id="story" aria-label="Komodo &amp; Ko.">
  <div class="stage">
-  <div class="cam"><img class="plate" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" alt="View over the bays of Padar Island in Komodo National Park, with boats at anchor"><div class="mist"></div></div>
+  <div class="cam"><img class="plate" src="{pg.asset("img/padar-island.jpg")}?v={ver("img/padar-island.jpg")}" fetchpriority="high" decoding="async" alt="View over the bays of Padar Island in Komodo National Park, with boats at anchor"><div class="mist"></div></div>
   <div class="veil"></div>
   <div class="shade"></div>
   <div class="fog" aria-hidden="true"><i class="f0"></i><i class="f1"></i><i class="f2"></i></div>
