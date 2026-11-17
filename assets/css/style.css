@@ -551,17 +551,17 @@ body.menu-open{overflow:hidden}
    story.js does nothing at this width. */
 @media (max-width:960px){
   #story{height:auto}
-  #story .stage{position:relative;height:auto;overflow:visible;background:none;padding-top:100svh}
-  #story .cam{inset:0 0 auto 0;height:100svh;transform:none!important;will-change:auto;
+  #story .stage{position:relative;height:auto;overflow:visible;background:none;padding-top:100vh;padding-top:100lvh}
+  #story .cam{inset:0 0 auto 0;height:100vh;height:100lvh;transform:none!important;will-change:auto;
     background:linear-gradient(180deg,#3f73b5 0%,#6f9bd0 30%,#a3c0e2 60%,#cddfee 100%)}
   #story .camF,#story .fog,#story .shade,#story .night,#story .prog,#story .snap,#story .spots,#story .hint{display:none}
-  #story .veil{inset:0 0 auto 0;height:100svh;bottom:auto}
+  #story .veil{inset:0 0 auto 0;height:100vh;height:100lvh;bottom:auto}
   #story .layer,#story .veil,#story .veil-b{opacity:1!important;visibility:visible!important;transition:none}
   #story .layer>*{transition:none}
-  #story .L0,#story .L1{position:absolute;inset:0 0 auto 0;height:100svh}
+  #story .L0,#story .L1{position:absolute;inset:0 0 auto 0;height:100vh;height:100lvh}
   #story .L0 .hero-copy{transform:none!important}
   #story .L1 .veil-b{position:absolute}
-  #story .L2,#story .L3,#story .L4{position:relative;inset:auto;min-height:100svh;display:flex;align-items:center;pointer-events:auto}
+  #story .L2,#story .L3,#story .L4{position:relative;inset:auto;min-height:100vh;min-height:100lvh;display:flex;align-items:center;pointer-events:auto}
   /* scene 2: the promise, over the island */
   #story .L2{justify-content:center;padding:90px 22px;isolation:isolate;
     background:linear-gradient(rgba(14,22,14,.5),rgba(14,22,14,.5)),url(../img/padar-island.jpg) 52% 62%/auto 175% no-repeat,var(--forest)}
@@ -579,4 +579,19 @@ body.menu-open{overflow:hidden}
   #story .L4 .dragon,#story .L4 .st-copy,#story[data-scene] .L4 .dragon,#story[data-scene] .L4 .st-copy{transform:none}
   #story .dragon{height:auto;width:min(62vw,300px);aspect-ratio:5/6}
   .panel{margin-top:0}
+}
+
+/* Phones: one swipe = one section. The phone's own scroll snapping moves exactly one
+   section per swipe (snap-stop: always stops a strong flick from skipping a section).
+   The rest of the page is one tall snap area, so it scrolls freely; the footer has its
+   own end point so the bottom of the page is always reachable. */
+@media (max-width:960px){
+  html.snap-home{scroll-snap-type:y mandatory;scroll-behavior:auto}
+  html.snap-home #story .cam,html.snap-home #story .L2,html.snap-home #story .L3,html.snap-home #story .L4{
+    scroll-snap-align:start;scroll-snap-stop:always}
+  html.snap-home .panel{scroll-snap-align:start}
+  html.snap-home .footer{scroll-snap-align:end}
+}
+@media (max-width:960px) and (prefers-reduced-motion:reduce){
+  html.snap-home{scroll-snap-type:y proximity}
 }
