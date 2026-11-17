@@ -11,6 +11,9 @@ CONTACT = {
     "email_partner": "partnership@komodoandko.com",
     "whatsapp_display": "0823-3929-7918",
     "whatsapp_intl": "6282339297918",  # used for wa.me links
+    # Google Apps Script "Web app" URL that saves enquiries to the Google Sheet and emails
+    # the team. Leave empty until it is set up (see tools/google-apps-script/SETUP.md).
+    "enquiry_endpoint": "",
     "social": [
         ("Instagram", "https://www.instagram.com/komodoandko"),
         ("TikTok", "https://www.tiktok.com/@komodoandko"),
@@ -538,6 +541,29 @@ HOME = {
     ),
     "packages_title": L("Explore packages", "Jelajahi paket"),
     "destinations_title": L("Explore destinations", "Jelajahi destinasi"),
+    "how_title": L("How it works", "Cara kerjanya"),
+    "how_steps": [
+        (L("Tell us your plans", "Ceritakan rencana Anda"), L(
+            "Contact us via WhatsApp, DM or email. Share your travel dates, number of guests and the experiences you're looking for.",
+            "Hubungi kami melalui WhatsApp, DM, atau email. Ceritakan tanggal perjalanan, jumlah tamu, dan pengalaman yang Anda cari.",
+        )),
+        (L("Explore your options", "Jelajahi pilihan Anda"), L(
+            "We'll recommend suitable services, experiences and itineraries based on your preferences and budget.",
+            "Kami akan merekomendasikan layanan, pengalaman, dan itinerary yang sesuai dengan preferensi dan anggaran Anda.",
+        )),
+        (L("Receive your proposal", "Terima penawaran Anda"), L(
+            "Review your personalised arrangements, pricing and itinerary before confirming.",
+            "Tinjau rencana perjalanan, harga, dan itinerary yang disusun khusus untuk Anda sebelum mengonfirmasi.",
+        )),
+        (L("Confirm your booking", "Konfirmasi pemesanan"), L(
+            "Once you're happy with the arrangements, proceed with payment to secure your booking.",
+            "Setelah Anda setuju dengan rencananya, lanjutkan pembayaran untuk mengamankan pemesanan Anda.",
+        )),
+        (L("Enjoy the experience", "Nikmati perjalanan Anda"), L(
+            "We'll coordinate your arrangements and keep you informed, so you can enjoy your journey with peace of mind.",
+            "Kami akan mengoordinasikan semua rencana dan terus memberi kabar, sehingga Anda bisa menikmati perjalanan dengan tenang.",
+        )),
+    ],
     "why_title": L("Why choose us", "Mengapa memilih kami"),
     "why": [
         (L("Local experts", "Ahli lokal"), L(

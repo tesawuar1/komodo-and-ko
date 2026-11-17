@@ -564,12 +564,12 @@ body.menu-open{overflow:hidden}
   #story .L2,#story .L3,#story .L4{position:relative;inset:auto;min-height:100vh;min-height:100lvh;display:flex;align-items:center;pointer-events:auto}
   /* scene 2: the promise, over the island */
   #story .L2{justify-content:center;padding:90px 22px;isolation:isolate;
-    background:linear-gradient(rgba(14,22,14,.5),rgba(14,22,14,.5)),url(../img/padar-island.jpg) 52% 62%/auto 175% no-repeat,var(--forest)}
+    background:linear-gradient(rgba(14,22,14,.5),rgba(14,22,14,.5)),url(../img/padar-island.jpg) 56% 62%/cover no-repeat,var(--forest)}
   #story .L2 .vision,#story[data-scene] .L2 .vision{position:relative;left:auto;top:auto;transform:none;width:100%}
   #story .vision h2{font-size:42px}
   /* scene 3: the paragraph on its ivory panel, over another view of the island */
   #story .L3{align-items:flex-start;padding:calc(var(--nav-h) + 24px) 20px 40px;
-    background:url(../img/padar-island.jpg) 70% 70%/auto 210% no-repeat,var(--forest)}
+    background:url(../img/destinations/padar-island.jpg) 62% 70%/cover no-repeat,var(--forest)}
   #story .L3 .acct,#story[data-scene] .L3 .acct{position:relative;left:auto;right:auto;top:auto;transform:none}
   /* scene 4: Komodo dragon */
   #story .L4{background:var(--deep);align-items:center}
@@ -595,3 +595,82 @@ body.menu-open{overflow:hidden}
 @media (max-width:960px) and (prefers-reduced-motion:reduce){
   html.snap-home{scroll-snap-type:y proximity}
 }
+
+/* ---------------- Hover animations (mouse and trackpad only) ----------------
+   Cards lift with a soft shadow while the photo zooms and the title slides;
+   menu items, links and headings lift or slide with a brass accent. */
+@media (hover:hover) and (pointer:fine){
+  /* photo cards and pictures */
+  .ed .pic,.item-pic,.svc-media,.dragon img,.crest{transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+  .ed .pic .bg,.item-pic .bg{transition:transform 1.4s var(--ease),filter .6s var(--ease)}
+  .ed .txt h3,.ed .meta,.ed p{transition:transform .5s var(--ease),color .35s ease}
+  .ed:hover .pic{transform:translateY(-8px);box-shadow:0 26px 50px -18px rgba(20,32,19,.45)}
+  .ed:hover .pic .bg{transform:scale(1.08);filter:saturate(1.08) brightness(1.04)}
+  .ed:hover .txt h3{transform:translateX(8px);color:var(--moss)}
+  .ed:hover .meta{transform:translateX(8px)}
+  .ed:hover p{transform:translateX(4px)}
+  .ed .link{transition:background-size .45s var(--ease),letter-spacing .45s var(--ease)}
+  .ed:hover .link{letter-spacing:.1em}
+  .item.has-pic:hover .item-pic{transform:translateY(-6px);box-shadow:0 22px 44px -18px rgba(20,32,19,.45)}
+  .item.has-pic:hover .item-pic .bg{transform:scale(1.07)}
+  .svc-list a:hover h3{color:var(--moss)}
+  .svc-media:hover{transform:scale(1.015)}
+  .dragon:hover img{transform:scale(1.03)}
+  .crest:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 30px 60px -24px rgba(20,32,19,.55)}
+  .why-grid div,.options div,.item:not(.has-pic){transition:transform .5s var(--ease)}
+  .why-grid div:hover,.options div:hover,.item:not(.has-pic):hover{transform:translateY(-6px)}
+
+  /* navigation */
+  .menu-btn{transition:transform .35s var(--ease),color .3s ease}
+  .menu-btn:hover,.menu>li.open .menu-btn{transform:translateY(-2px)}
+  .nav.solid .menu-btn:hover,.nav.open-dd .menu-btn:hover{color:var(--brass)}
+  .brand{transition:transform .45s var(--ease)}
+  .brand:hover{transform:scale(1.04)}
+  .lang a{transition:opacity .2s,transform .3s var(--ease)}
+  .lang a:hover{transform:translateY(-2px)}
+  .dd a.sub,.dd h4 a{transition:transform .35s var(--ease),color .25s ease}
+  .dd h4 a{display:inline-block}
+  .dd a.sub:hover,.dd h4 a:hover{transform:translateX(6px);color:var(--brass)}
+  .footer a{display:inline-block;transition:transform .3s var(--ease),opacity .2s}
+  .footer a:hover{transform:translateX(4px)}
+  .btn{transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(20,32,19,.5)}
+
+  /* headings and sub-headings */
+  main h1,main h2,main h3,.toc a,.crumbs a{transition:transform .45s var(--ease),color .3s ease}
+  main h2,main h3{transform-origin:left center}
+  .sec-head h2:hover,.prose h2:hover,.pkg h2:hover,.svc-intro h2:hover,.legal-doc .prose h3:hover,.item h3:hover,
+  .why-grid h3:hover,.options h3:hover,.about h2:hover,.how h2:hover,.how-step h3:hover{transform:translateY(-3px) scale(1.015)}
+  .page-hero h1:hover,.cta h2:hover,.st-copy h2:hover{transform:scale(1.02)}
+  .toc a:hover{transform:translateX(4px)}
+  .crumbs a:hover{transform:translateY(-1px)}
+  #story .vision h2,#story .vision h2:hover,.hero-copy h1:hover{transform:none}
+}
+
+/* How it works: five numbered steps */
+.how{background:var(--white)}
+.how-steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--line)}
+.how-step{position:relative;padding:34px 26px 10px 0}
+.how-step+.how-step{padding-left:26px;border-left:1px solid var(--line)}
+.how-num{display:block;font-family:var(--serif);font-style:italic;font-size:56px;line-height:1;color:var(--brass);margin-bottom:18px;
+  transition:transform .5s var(--ease),color .3s ease}
+.how-step h3{font-size:26px;margin-bottom:10px}
+.how-step p{color:var(--ink2);font-size:16.5px;line-height:1.65}
+.how-step{transition:transform .5s var(--ease)}
+@media (hover:hover) and (pointer:fine){
+  .how-step:hover{transform:translateY(-8px)}
+  .how-step:hover .how-num{transform:scale(1.12) translateX(4px);color:var(--forest)}
+}
+@media (max-width:1180px){
+  .how-steps{grid-template-columns:repeat(3,1fr)}
+  .how-step:nth-child(4){padding-left:0;border-left:0}
+}
+@media (max-width:600px){
+  .how-steps{grid-template-columns:1fr;border-top:0}
+  .how-step,.how-step+.how-step{display:grid;grid-template-columns:56px 1fr;column-gap:14px;padding:22px 0;border-left:0;border-top:1px solid var(--line)}
+  .how-num{grid-row:span 2;font-size:44px;margin:0}
+  .how-step h3{font-size:24px;margin-bottom:6px}
+}
+
+/* enquiry form spam trap: hidden from people, visible to bots */
+.hp{position:absolute!important;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}

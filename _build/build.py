@@ -352,6 +352,12 @@ LON  119.5714&deg; E
   <div class="rail" tabindex="0" aria-label="{esc(t(H["destinations_title"]))}">{rail}</div>
  </section>
 
+ <section class="sec how" id="how-it-works"><div class="wrap">
+  <div class="sec-head"><h2>{esc(t(H["how_title"]))}</h2>
+   <a class="btn btn-solid" href="{pg.link("enquiry.html")}">{esc(t(UI["plan_now"]))}</a></div>
+  <ol class="how-steps">{"".join(f'<li class="how-step"><span class="how-num">{i}</span><h3>{esc(t(a))}</h3><p>{esc(t(b))}</p></li>' for i, (a, b) in enumerate(H["how_steps"], 1))}</ol>
+ </div></section>
+
  <section class="why"><div class="wrap"><h2>{esc(t(H["why_title"]))}</h2><div class="why-grid">{why}</div></div></section>
 
  <section class="sec"><div class="wrap"><div class="about">
@@ -556,6 +562,7 @@ def enquiry_page(pg):
                 f'<span class="err" id="e-{name}" role="alert"></span></div>')
     cfg = {
         "wa": CONTACT["whatsapp_intl"], "email": CONTACT["email_enquiry"],
+        "endpoint": CONTACT.get("enquiry_endpoint", ""), "lang": pg.lang,
         "intro": t(E["msg_intro"]), "subject": t(E["msg_subject"]),
         "labels": {k: t(v[0]) for k, v in F.items()},
         "err": {k: t(v) for k, v in E["errors"].items()},
@@ -576,6 +583,7 @@ def enquiry_page(pg):
     {fld("dates", full=True)}
     {fld("service", full=True, area=True)}
     {fld("budget", full=True)}
+    <div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
     <div class="form-actions">
       <button type="button" class="btn btn-solid" data-send="wa">{WA_ICON}{esc(t(E["send_wa"]))}</button>
       <button type="button" class="btn btn-line" data-send="email">{MAIL_ICON}{esc(t(E["send_email"]))}</button>

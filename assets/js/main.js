@@ -127,7 +127,23 @@
   var form = document.getElementById("enquiry-form");
   if (form) {
     var cfg = JSON.parse(form.getAttribute("data-cfg"));
-    var fields = Array.prototype.slice.call(form.querySelectorAll("input, textarea"));
+    var fields = Array.prototype.slice.call(form.querySelectorAll(".field input, .field textarea"));
+    var trap = form.elements.website;   // hidden spam trap: people never see or fill it
+
+    /* Save a copy of the enquiry to the Google Sheet (and email the team) before
+       opening WhatsApp or the email app. Fire-and-forget: it never blocks the guest. */
+    function saveEnquiry(channel) {
+      if (!cfg.endpoint) return;
+      var data = { channel: channel, lang: cfg.lang, page: location.href, website: trap ? trap.value : "" };
+      fields.forEach(function (el) { data[el.name] = el.value.trim(); });
+      try {
+        fetch(cfg.endpoint, {
+          method: "POST", mode: "no-cors", keepalive: true,
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(data)
+        }).catch(function () {});
+      } catch (e) { /* never stop the guest from reaching us */ }
+    }
 
     function check(el) {
       var v = el.value.trim(), msg = "";
@@ -159,6 +175,7 @@
         fields.forEach(function (el) { if (!check(el)) { ok = false; first = first || el; } });
         if (!ok) { first.focus(); return; }
         var text = message();
+        saveEnquiry(b.getAttribute("data-send"));
         if (b.getAttribute("data-send") === "wa") {
           window.open("https://wa.me/" + cfg.wa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
         } else {
